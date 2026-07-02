@@ -1,16 +1,16 @@
 package com.utilities;
 
-import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.ObjectNode;
 
 /**
  * Utility component for masking sensitive fields in JSON data.
@@ -44,7 +44,7 @@ public class JsonMasking {
 	private static final int CARD_SUFFIX_VISIBLE = 4;
 
 	/**
-	 * Constructor initializing the ObjectMapper with JavaTimeModule support.
+	 * Constructor injecting the shared Jackson ObjectMapper.
 	 * 
 	 * @param objectMapper Jackson ObjectMapper instance
 	 */
@@ -111,11 +111,10 @@ public class JsonMasking {
 	 */
 	private ObjectNode maskObjectNode(ObjectNode objectNode) {
 		ObjectNode maskedObject = objectMapper.createObjectNode();
-		Iterator<String> fieldNames = objectNode.fieldNames();
 
-		while (fieldNames.hasNext()) {
-			String fieldName = fieldNames.next();
-			JsonNode fieldValue = objectNode.get(fieldName);
+		for (Map.Entry<String, JsonNode> property : objectNode.properties()) {
+			String fieldName = property.getKey();
+			JsonNode fieldValue = property.getValue();
 
 			if (shouldMaskField(fieldName)) {
 				// Use the source fieldValue (maskedObject does not yet contain this key) and

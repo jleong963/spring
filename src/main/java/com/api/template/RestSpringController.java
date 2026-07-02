@@ -22,7 +22,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.enums.ResponseCode;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
 import com.pojo.template.Pojo;
 import com.service.template.SampleService;

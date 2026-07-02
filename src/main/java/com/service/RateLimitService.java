@@ -4,8 +4,8 @@ import com.utilities.LogUtil;
 import com.configuration.RateLimitProperties;
 import com.pojo.bucket4j.CustomBucket;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import io.github.bucket4j.Bandwidth;
 import jakarta.servlet.http.HttpServletRequest;

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.configuration.GooglePayConfig;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.google.crypto.tink.apps.paymentmethodtoken.GooglePaymentsPublicKeysManager;
 import com.google.crypto.tink.apps.paymentmethodtoken.PaymentMethodTokenRecipient;
 import com.google.crypto.tink.apps.paymentmethodtoken.PaymentMethodTokenRecipient.Builder;

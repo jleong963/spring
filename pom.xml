@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.16</version>
+		<version>4.1.0</version>
 		<relativePath/> 
 	</parent>
 	
@@ -55,11 +55,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web-services</artifactId>
+			<artifactId>spring-boot-starter-webservices</artifactId>
 		</dependency>
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
@@ -134,7 +134,7 @@
 		<dependency>
 		    <groupId>net.logstash.logback</groupId>
 		    <artifactId>logstash-logback-encoder</artifactId>
-		    <version>7.4</version>
+		    <version>9.0</version><!-- 9.x line: Java 17+, Logback 1.5.x, Jackson 3 (matches Boot 4) -->
 		</dependency>
 		<!-- DB record changes audit -->
 		<dependency>
@@ -175,16 +175,7 @@
 		    <groupId>org.json</groupId>
 		    <artifactId>json</artifactId>
 		    <version>20250517</version>
-		</dependency>
-		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-databind</artifactId>
-		</dependency>
-		<dependency>
-		    <groupId>com.fasterxml.jackson.datatype</groupId>
-		    <artifactId>jackson-datatype-jsr310</artifactId>
-		</dependency>
-		<dependency>
+		</dependency>		<dependency>
 		    <groupId>org.apache.httpcomponents</groupId>
 		    <artifactId>httpclient</artifactId>
 		    <version>4.5.14</version>
@@ -194,8 +185,8 @@
 		    <artifactId>httpasyncclient</artifactId>
 		</dependency>
 		<dependency>
-		    <groupId>org.glassfish.jersey.core</groupId>
-		    <artifactId>jersey-client</artifactId>
+		    <groupId>jakarta.ws.rs</groupId>
+		    <artifactId>jakarta.ws.rs-api</artifactId>
 		</dependency>
 		<dependency>
 		    <groupId>jakarta.servlet</groupId>
@@ -214,7 +205,7 @@
 		<!-- Spring Batch -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-batch</artifactId>
+		    <artifactId>spring-boot-starter-batch-jdbc</artifactId>
 		</dependency>
 		<!-- Spring Batch -->
 		
@@ -243,10 +234,12 @@
 		<dependency>
 		    <groupId>org.springframework.retry</groupId>
 		    <artifactId>spring-retry</artifactId>
+		    <version>2.0.13</version><!-- Boot 4 no longer manages spring-retry's version -->
+
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework.boot</groupId>
-		    <artifactId>spring-boot-starter-aop</artifactId> <!-- Needed for @Retryable to work -->
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjweaver</artifactId> <!-- Needed for @Retryable to work (Boot 4 removed spring-boot-starter-aop; spring-aop comes in transitively) -->
 		</dependency>
 		<!-- Auto-Retry with Backoff -->
 		
@@ -277,20 +270,12 @@
 		    <version>0.39.0</version>
 		</dependency>
 		<!-- SSHJ(SSH2 & SFTP operation) -->
-		
-		<!-- Jackson Problem (RFC7807) -->
-		<dependency>
-			<groupId>org.zalando</groupId>
-			<artifactId>problem-spring-web-starter</artifactId>
-			<version>0.29.1</version>
-		</dependency>
-		<!-- Jackson Problem (RFC7807) -->
-		
+				
 		<!-- Resilience4j -->
 		<dependency>
 		    <groupId>io.github.resilience4j</groupId>
-		    <artifactId>resilience4j-spring-boot3</artifactId>
-		    <version>2.3.0</version>
+		    <artifactId>resilience4j-spring-boot4</artifactId>
+		    <version>2.4.0</version>
 		</dependency>
 		<!-- Resilience4j -->
 		
@@ -298,12 +283,12 @@
     <dependency>
         <groupId>net.javacrumbs.shedlock</groupId>
         <artifactId>shedlock-spring</artifactId>
-        <version>7.2.0</version>
+        <version>7.7.0</version>
     </dependency>
     <dependency>
         <groupId>net.javacrumbs.shedlock</groupId>
         <artifactId>shedlock-provider-jdbc-template</artifactId>
-        <version>7.2.0</version>
+        <version>7.7.0</version>
     </dependency>
     <!-- Shedlock -->
 		

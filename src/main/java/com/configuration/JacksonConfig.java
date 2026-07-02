@@ -4,20 +4,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.MapperFeature;
+import tools.jackson.databind.SerializationFeature;
+import tools.jackson.databind.json.JsonMapper;
 
 @Configuration
 public class JacksonConfig {
 
 	@Bean
-	public ObjectMapper objectMapper() {
+	public JsonMapper objectMapper() {
 		return JsonMapper.builder()
-				// Ignore unknown properties during deserialization
+				// Ignore unknown properties during deserialization (Jackson 3 default, kept
+				// explicit for clarity)
 				.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
 				// ACCEPT_EMPTY_STRING_AS_NULL_OBJECT:
 				// Treats empty strings ("") as null when deserializing into Object types.
@@ -43,11 +43,9 @@ public class JacksonConfig {
 				// objects
 				.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
 				// Exclude null & blank values from serialization
-				.defaultPropertyInclusion(
-						JsonInclude.Value.construct(JsonInclude.Include.NON_EMPTY, JsonInclude.Include.NON_EMPTY))
-				// Handle Java 8 date/time types
-				.addModule(new JavaTimeModule())
-				.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+				.changeDefaultPropertyInclusion(incl -> JsonInclude.Value.construct(JsonInclude.Include.NON_EMPTY, JsonInclude.Include.NON_EMPTY))
+				// Java 8 date/time support is built into Jackson 3 (no JavaTimeModule needed)
+				// and dates serialize as ISO-8601 strings by default, not timestamps
 				.build();
 	}
 }

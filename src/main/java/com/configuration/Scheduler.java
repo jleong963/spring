@@ -6,11 +6,11 @@ import java.util.UUID;
 
 import org.jboss.logging.MDC;
 import org.springframework.batch.core.BatchStatus;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersBuilder;
-import org.springframework.batch.core.launch.JobLauncher;
+import org.springframework.batch.core.job.Job;
+import org.springframework.batch.core.job.JobExecution;
+import org.springframework.batch.core.job.parameters.JobParameters;
+import org.springframework.batch.core.job.parameters.JobParametersBuilder;
+import org.springframework.batch.core.launch.JobOperator;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
@@ -34,14 +34,14 @@ import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 		prefix = "spring.task.scheduling", name = "enabled", havingValue = "true", matchIfMissing = false)
 public class Scheduler {
 
-	private final JobLauncher jobLauncher;
+	private final JobOperator jobOperator;
 
 	private final Job job;
 
 	// @Qualifier("<bean name>") - To match with bean name for created job in
 	// BatchJobConfig
-	public Scheduler(JobLauncher jobLauncher, @Qualifier("sampleJob") Job job, SampleThreadService sampleThreadService) {
-		this.jobLauncher = jobLauncher;
+	public Scheduler(JobOperator jobOperator, @Qualifier("sampleJob") Job job, SampleThreadService sampleThreadService) {
+		this.jobOperator = jobOperator;
 		this.job = job;
 		this.sampleThreadService = sampleThreadService;
 	}
@@ -57,7 +57,7 @@ public class Scheduler {
 					.addString("requestId", uuid)
 					.addLong("timestamp", System.currentTimeMillis())
 					.toJobParameters();
-			JobExecution jobExecution = jobLauncher.run(job, parameters);
+			JobExecution jobExecution = jobOperator.start(job, parameters);
 			if (jobExecution.getStatus() != BatchStatus.COMPLETED) {
 				log.error("Job failed with exit status: {}", jobExecution.getExitStatus());
 				// Send alert/notification

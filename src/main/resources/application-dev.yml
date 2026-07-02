@@ -3,10 +3,6 @@ server:
   shutdown: graceful # Ensures graceful shutdown in containers/k8s
   servlet:
     context-path: /spring # Sets a global prefix between domain & all endpoints, {domain}/{prefix}/{endpoint}
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
   port: 8080 #Server port config. Valid range: 0 → 65535
   tomcat:
     threads:
@@ -57,6 +53,11 @@ server:
   http2:
     enabled: true
 spring:
+  servlet:
+    encoding: # Boot 4 relocated server.servlet.encoding.* to spring.servlet.encoding.*
+      charset: UTF-8
+      enabled: true
+      force: true
   lifecycle:
     timeout-per-shutdown-phase: 30s  # Wait for in-flight requests
   application:
@@ -100,7 +101,7 @@ spring:
     open-in-view: false # Avoids lazy-loading leaks in enterprise apps
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect # Hibernate 7 (Boot 4) removed the versioned MySQL8Dialect
     hibernate:
       # none - No action. Hibernate will not touch the schema at all. Use this if you manage the schema manually
       # validate - Hibernate only validates that the schema matches the entity mappings. If something is missing (like a column or table), the app will fail to start. Useful for ensuring correctness without changing schema.

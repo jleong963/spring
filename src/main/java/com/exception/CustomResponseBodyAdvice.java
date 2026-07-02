@@ -26,8 +26,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import com.enums.ResponseCode;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import com.pojo.ApiResponse;
 import com.utilities.Tool;
 import jakarta.mail.MessagingException;
@@ -70,7 +70,7 @@ public class CustomResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 					request.getMethod(),
 					request.getURI(),
 					objectMapper.writeValueAsString(body));
-		} catch (JsonProcessingException e) {
+		} catch (JacksonException e) {
 			LogUtil.logError(log, e);
 		}
 		return body; // Don’t modify the response, just log it

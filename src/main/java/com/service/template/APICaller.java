@@ -34,7 +34,7 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.pojo.Property;
 import com.service.MTLSCertificationDetectionService;
 import com.solab.iso8583.IsoMessage;

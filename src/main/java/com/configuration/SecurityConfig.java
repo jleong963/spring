@@ -24,7 +24,7 @@ import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWrite
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
 
 import com.enums.ResponseCode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.pojo.ApiResponse;
 import com.pojo.Property;
 import com.utilities.Tool;
