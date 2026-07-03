@@ -1,5 +1,7 @@
 package com.configuration;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.jcache.JCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import com.pojo.bucket4j.CustomBucket;
@@ -45,6 +47,21 @@ public class CacheConfig {
 		}
 
 		return cacheManager;
+	}
+
+	/**
+	 * Adapts the JCache (Caffeine) provider above into Spring's cache abstraction.
+	 * {@code @EnableCaching} requires an {@link org.springframework.cache.CacheManager};
+	 * Spring Boot 4 no longer auto-bridges a user-defined {@link javax.cache.CacheManager}
+	 * bean into one, so it is registered explicitly here. The rate limiter continues to use
+	 * the JCache manager ({@code customCacheManager}) directly, so both share one provider.
+	 *
+	 * @param jCacheCacheManager the JSR-107 CacheManager defined above
+	 * @return a Spring CacheManager backing {@code @Cacheable} on the same JCache provider
+	 */
+	@Bean
+	org.springframework.cache.CacheManager springCacheManager(@Qualifier("customCacheManager") CacheManager jCacheCacheManager) {
+		return new JCacheCacheManager(jCacheCacheManager);
 	}
 
 	/**
