@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Component
 public class PermissionAspect {
 
-	@Before("@annotation(permission)")
+	@Before("@annotation(permissions)")
 	public void checkPermission(JoinPoint joinPoint, Permission permissions) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -33,7 +33,7 @@ public class PermissionAspect {
 
 		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		Set<String> userRoles = authorities.stream()
-				.map(GrantedAuthority::getAuthority)
+				.map(authority -> authority.getAuthority())
 				.collect(Collectors.toSet());
 
 		String resource = permissions.resource().toUpperCase();

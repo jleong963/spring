@@ -52,6 +52,10 @@ public class CustomHandlerInterceptor implements HandlerInterceptor {
 			// Retrieve the @RateLimit annotation (custom) from the handler method, if
 			// present
 			RateLimit rateLimit = handlerMethod.getMethodAnnotation(RateLimit.class);
+			if (rateLimit == null) {
+				// Method isn't annotated with @RateLimit, so there's nothing to rate limit
+				return true;
+			}
 
 			String resolvedIpKey = rateLimitService.resolveKeyFromRequest(log, request, "", "ip");
 			String headerName = rateLimit.headerName();
@@ -71,17 +75,17 @@ public class CustomHandlerInterceptor implements HandlerInterceptor {
 			String resolvedKey = resolvedIpKey;
 			if (resolvedHeaderKey != null && !resolvedHeaderKey.isBlank()) {
 				resolvedKey = resolvedKey != null && !resolvedKey.isBlank() ? resolvedKey.concat("|").concat(resolvedHeaderKey)
-						: resolvedKey.concat(resolvedHeaderKey);
+						: resolvedHeaderKey;
 			}
 			if (resolvedPathVariableKey != null && !resolvedPathVariableKey.isBlank()) {
 				resolvedKey = resolvedKey != null && !resolvedKey.isBlank()
 						? resolvedKey.concat("|").concat(resolvedPathVariableKey)
-						: resolvedKey.concat(resolvedPathVariableKey);
+						: resolvedPathVariableKey;
 			}
 			if (resolvedRequestBodyFieldKey != null && !resolvedRequestBodyFieldKey.isBlank()) {
 				resolvedKey = resolvedKey != null && !resolvedKey.isBlank()
 						? resolvedKey.concat("|").concat(resolvedRequestBodyFieldKey)
-						: resolvedKey.concat(resolvedRequestBodyFieldKey);
+						: resolvedRequestBodyFieldKey;
 			}
 			// Try to consume a token
 			log.info("Resolved key {}", resolvedKey);

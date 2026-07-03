@@ -119,7 +119,7 @@ public class JsonMasking {
 			if (shouldMaskField(fieldName)) {
 				// Use the source fieldValue (maskedObject does not yet contain this key) and
 				// guard against null/missing nodes to avoid a NullPointerException.
-				String raw = (fieldValue == null || fieldValue.isNull()) ? "" : fieldValue.asText();
+				String raw = (fieldValue == null || fieldValue.isNull()) ? "" : fieldValue.asString("");
 				// Card numbers keep the first 8 and last 4 digits visible; everything else is
 				// fully masked with asterisks of the same length.
 				maskedObject.put(fieldName, isCardField(fieldName) ? maskCardNumber(raw) : "*".repeat(raw.length()));

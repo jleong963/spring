@@ -180,7 +180,7 @@ public class RateLimitService {
 					// Support nested fields via dot-path (e.g. "user.id") using a JSON Pointer.
 					JsonNode node = root.at("/" + fieldPath.replace('.', '/'));
 					if (node != null && !node.isMissingNode() && !node.isNull()) {
-						String value = node.isValueNode() ? node.asText() : node.toString();
+						String value = node.isValueNode() ? node.asString() : node.toString();
 						if (value != null && !value.isBlank()) {
 							return StringEscapeUtils.escapeHtml4(value);
 						}

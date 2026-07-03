@@ -41,7 +41,7 @@ public class SampleService {
 		return ThreadLocalRandom.current()
 				.ints(length, 0, allChars.length())
 				.mapToObj(allChars::charAt)
-				.collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+				.collect(StringBuilder::new, (sb, c) -> sb.append(c), (sb1, sb2) -> sb1.append(sb2))
 				.toString();
 	}
 

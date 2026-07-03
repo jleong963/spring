@@ -30,8 +30,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.codec.binary.Base64;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,9 +46,15 @@ import com.service.RsaKeyCacheService;
 @Component
 public class Tool {
 
-	@Lazy
-	@Autowired(required = false)
-	private RsaKeyCacheService rsaKeyCacheService;
+	private final RsaKeyCacheService rsaKeyCacheService;
+
+	// @Lazy injects a deferred-resolution proxy so this constructor can complete
+	// before RsaKeyCacheService (which itself depends on Tool) is fully built,
+	// breaking that circular dependency. Nullable since no proxy can stand in
+	// for a bean that isn't registered at all.
+	public Tool(@Lazy @Nullable RsaKeyCacheService rsaKeyCacheService) {
+		this.rsaKeyCacheService = rsaKeyCacheService;
+	}
 
 	public List<String> downloadFileFromSftp(Logger log, String host, String username, String password,
 			String remote_path, String local_path, String knownHostsFilePath, String fingerprint) throws Throwable {
