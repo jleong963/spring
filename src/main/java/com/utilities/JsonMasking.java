@@ -19,7 +19,7 @@ import tools.jackson.databind.node.ObjectNode;
  * arrays.
  * Thread-safe implementation using ConcurrentHashMap for field storage.
  *
- * @author jleong94
+ * @author jleong963
  * @since 2025-11-06
  */
 @Component

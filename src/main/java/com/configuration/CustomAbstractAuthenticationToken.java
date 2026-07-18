@@ -20,7 +20,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
  * </p>
  * 
  * @see AbstractAuthenticationToken
- * @author jleong94
+ * @author jleong963
  */
 public class CustomAbstractAuthenticationToken extends AbstractAuthenticationToken {
 

@@ -14,7 +14,7 @@ import org.slf4j.Logger;
  * never silently lost.
  * </p>
  *
- * @author jleong94
+ * @author jleong963
  */
 public final class LogUtil {
 

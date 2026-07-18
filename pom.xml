@@ -14,17 +14,17 @@
 	<version>0.0.1</version>
 	<name>spring</name>
 	<description>Spring Boot Base Project Template</description>
-	<url>https://github.com/jleong94/spring</url><!-- Homepage of project -->
+	<url>https://github.com/jleong963/spring</url><!-- Homepage of project -->
 	<licenses><!-- Declares the license(s) under which the project is distributed. -->
 	    <license>
 	        <name>Apache License, Version 2.0</name>
-	        <url>https://github.com/jleong94/spring?tab=Apache-2.0-1-ov-file</url>
+	        <url>https://github.com/jleong963/spring?tab=Apache-2.0-1-ov-file</url>
 	        <distribution>repo</distribution>
 	    </license>
 	</licenses>
 	<developers><!-- Main developers/maintainers of the project. -->
 	    <developer>
-	        <id>jleong94</id>
+	        <id>jleong963</id>
 	        <name>James Leong</name>
 	        <email>jleong963@gmail.com</email>
 	        <organization></organization>

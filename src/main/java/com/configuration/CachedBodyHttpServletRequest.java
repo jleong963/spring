@@ -71,7 +71,7 @@ import java.nio.charset.StandardCharsets;
  * 
  * @see HttpServletRequestWrapper
  * @see CustomOncePerRequestFilter
- * @author jleong94
+ * @author jleong963
  */
 public class CachedBodyHttpServletRequest extends HttpServletRequestWrapper {
 
