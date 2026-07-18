@@ -49,7 +49,7 @@ public class EmailITests {
 			when(mailSender.createMimeMessage()).thenReturn(new MimeMessage((Session) null));
 
 			Email email = Email.builder()
-					.receiver("james.leong@mpsb.net")
+					.receiver("jleong963@gmail.com")
 					.subject("Test Email")
 					.body("Hello world.")
 					.build();
